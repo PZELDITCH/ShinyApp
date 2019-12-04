@@ -1,15 +1,40 @@
 ---
-title: "Shiny App"
+title: "OkCupid For You: Find Your Future Friends and Partners"
+author: Megan Resurreccion and Phillip Zelditch; STAT 385 Final Project
 output: html_document
+runtime: shiny
 ---
 
-```{r}
+```{r, echo=FALSE}
 library(shiny)
-
+library(shinythemes)
 #aesthetics and user interface
 ui <- fluidPage(
-
+  theme=shinytheme("sandstone"),
+  mainPanel(
+  navlistPanel(
+    tabPanel("About the Project",
+             fluidRow(column(width = 12)),
+             tags$p("On common dating apps, you don't get to find the right person for you. The app does. Conventional dating apps don't let you refine your searches for the people you're looking for. Finding friends and partners with stuff in common in real life can also be difficult. Find a better social life for you.")
+             ),
+    tabPanel("By Sign",
+             fluidRow(column(width=12))
+             ),
+    tabPanel("By Diet",
+             fluidRow(column(width=12))
+             ),
+    tabPanel("By Drinking Activity",
+             fluidRow(column(width=12))
+             ),
+    tabPanel("By Pet Preference",
+             fluidRow(column(width=12))
+             ),
+    tabPanel("By Smoking Activity",
+             fluidRow(column(width=12)))
+  )
 )
+)
+
 
 #create graphs and mess with data stuff
 server <- function(input, output) {
