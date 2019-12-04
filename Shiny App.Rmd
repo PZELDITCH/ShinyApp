@@ -3,4 +3,20 @@ title: "Shiny App"
 output: html_document
 ---
 
+```{r}
+library(shiny)
 
+#aesthetics and user interface
+ui <- fluidPage(
+
+)
+
+#create graphs and mess with data stuff
+server <- function(input, output) {
+
+
+}
+
+
+shinyApp(ui = ui, server = server)
+```
