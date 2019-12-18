@@ -5,6 +5,14 @@ output: html_document
 runtime: shiny
 ---
 
+
+```{r}
+OkCupid <- read.csv("https://uofi.box.com/shared/static/oy32nc373w4jqz3kummksnw6wvhfrl7a.csv")
+library(tidyverse)
+ggplot(data = OkCupid, aes(age)) + geom_bar() + labs(x = "Age of User", y = "Number of Users", title = "Number of Users by Age") + scale_x_discrete()
+```
+
+
 ```{r, echo=FALSE}
 library(shiny)
 library(shinythemes)
