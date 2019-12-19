@@ -44,19 +44,22 @@ ui <- fluidPage(
     tabPanel("By Drinking Activity",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69")),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             selected = "18-22"),
              column(12,plotOutput("whichdrink"))
              ),
     tabPanel("By Pet Preference",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69")),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             selected = "18-22"),
              column(12,plotOutput("whichpet"))
              ),
     tabPanel("By Smoking Activity",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69")),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             selected = "18-22"),
              column(12,plotOutput("whichsmoke"))
              )
 )
@@ -115,226 +118,176 @@ ggplot(data = OkCupid50, aes(body_type)) + geom_bar() + labs(x = "Body Type", y 
 
 
 output$whichsmoke <- renderPlot({
-  
-})
-
-output$smoke1 <- renderPlot({
+  if(input$age == "18-22"){
   OKCupid1 <- OkCupid %>% filter(age >= "18" & age <= "22", smokes != "")
 ggplot(data = OKCupid1, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+  }
+  else if(input$age == "23-27"){
+  OKCupid6 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes != "")
+ggplot(data = OKCupid6, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age == "28-32"){
+  OKCupid11 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes != "")
+ggplot(data = OKCupid11, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age == "33-37"){
+  OKCupid16 <- OkCupid %>% filter(age >= "33" & age <= "37", smokes != "")
+ggplot(data = OKCupid16, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age == "38-42"){
+  OKCupid21 <- OkCupid %>% filter(age >= "38" & age <= "42", smokes != "")
+ggplot(data = OKCupid21, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age == "43-47"){
+  OKCupid26 <- OkCupid %>% filter(age >= "43" & age <= "47", smokes != "")
+ggplot(data = OKCupid26, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age == "48-52"){
+  OKCupid31 <- OkCupid %>% filter(age >= "48" & age <= "52", smokes != "")
+ggplot(data = OKCupid31, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age == "53-57"){
+  OKCupid36 <- OkCupid %>% filter(age >= "53" & age <= "57", smokes != "")
+ggplot(data = OKCupid36, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else if(input$age =="58-62"){
+  OKCupid41 <- OkCupid %>% filter(age >= "58" & age <= "62", smokes != "")
+ggplot(data = OKCupid41, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else{
+  OKCupid46 <- OkCupid %>% filter(age >= "63" & age <= "69", smokes != "")
+ggplot(data = OKCupid46, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
 })
 
-output$drink1 <- renderPlot({
-  OKCupid2 <- OkCupid %>% filter(age >= "18" & age <= "22", drinks != "")
+output$whichdrink <- renderPlot({
+  if(input$age == "18-22"){
+    OKCupid2 <- OkCupid %>% filter(age >= "18" & age <= "22", drinks != "")
 ggplot(data = OKCupid2, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
+  }
+  else if(input$age == "23-27"){
+  OKCupid7 <- OkCupid %>% filter(age >= "23" & age <= "27", drinks != "")
+ggplot(data = OKCupid7, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age == "28-32"){
+  OKCupid12 <- OkCupid %>% filter(age >= "28" & age <= "32", drinks != "")
+ggplot(data = OKCupid12, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age == "33-37"){
+  OKCupid17 <- OkCupid %>% filter(age >= "33" & age <= "37", drinks != "")
+ggplot(data = OKCupid17, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age == "38-42"){
+  OKCupid22 <- OkCupid %>% filter(age >= "38" & age <= "42", drinks != "")
+ggplot(data = OKCupid22, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age == "43-47"){
+  OKCupid27 <- OkCupid %>% filter(age >= "43" & age <= "47", drinks != "")
+ggplot(data = OKCupid27, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age == "48-52"){
+  OKCupid32 <- OkCupid %>% filter(age >= "48" & age <= "52", drinks != "")
+ggplot(data = OKCupid32, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age == "53-57"){
+  OKCupid37 <- OkCupid %>% filter(age >= "53" & age <= "57", drinks != "")
+ggplot(data = OKCupid37, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else if(input$age=="58-62"){
+  OKCupid42 <- OkCupid %>% filter(age >= "58" & age <= "62", drinks != "")
+ggplot(data = OKCupid42, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
+  else{
+  OKCupid47 <- OkCupid %>% filter(age >= "63" & age <= "69", drinks != "")
+ggplot(data = OKCupid47, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+  }
 })
-  
-output$pet1 <- renderPlot({
+
+output$whichpet <- renderPlot({
+  if(input$age == "18-22"){
   OKCupid3 <- OkCupid %>% filter(age >= "18" & age <= "22", pets != "")
 ggplot(data = OKCupid3, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet1 <- renderPlot({
-  Okupid4 <- OkCupid %>% filter(age >= "18" & age <= "22", diet != "")
-ggplot(data = OkCupid4, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-
-output$smoke2 <- renderPlot({
-  OKCupid6 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes != "")
-ggplot(data = OKCupid6, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink2 <- renderPlot({
-  OKCupid7 <- OkCupid %>% filter(age >= "23" & age <= "27", drinks != "")
-ggplot(data = OKCupid7, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet2 <- renderPlot({
+  }
+  else if(input$age == "23-27"){
   OKCupid8 <- OkCupid %>% filter(age >= "23" & age <= "27", pets != "")
-ggplot(data = OKCupid8, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
+ggplot(data = OKCupid8, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else if(input$age == "28-32"){
+  OKCupid13 <- OkCupid %>% filter(age >= "28" & age <= "32", pets != "")
+ggplot(data = OKCupid13, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else if(input$age == "33-37"){
+  OKCupid18 <- OkCupid %>% filter(age >= "33" & age <= "37", pets != "")
+ggplot(data = OKCupid18, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference")  + coord_flip()  
+  }
+  else if(input$age == "38-42"){
+  OKCupid23 <- OkCupid %>% filter(age >= "38" & age <= "42", pets != "")
+ggplot(data = OKCupid23, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else if(input$age == "43-47"){
+  OKCupid28 <- OkCupid %>% filter(age >= "43" & age <= "47", pets != "")
+ggplot(data = OKCupid28, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else if(input$age == "48-52"){
+  OKCupid33 <- OkCupid %>% filter(age >= "48" & age <= "52", pets != "")
+ggplot(data = OKCupid33, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else if(input$age == "53-57"){
+  OKCupid38 <- OkCupid %>% filter(age >= "53" & age <= "57", pets != "")
+ggplot(data = OKCupid38, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else if(input$age=="58-62"){
+  OKCupid43 <- OkCupid %>% filter(age >= "58" & age <= "62", pets != "")
+ggplot(data = OKCupid43, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
+  else{
+  OKCupid48 <- OkCupid %>% filter(age >= "63" & age <= "69", pets != "")
+ggplot(data = OKCupid48, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+  }
 })
 
-output$diet2 <- renderPlot({
-  OkCupid9 <- OkCupid %>% filter(age >= "23" & age <= "27", diet != "")
-ggplot(data = OkCupid9, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-
-output$smoke3 <- renderPlot({
-  OKCupid11 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes != "")
-ggplot(data = OKCupid11, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink3 <- renderPlot({
-OKCupid12 <- OkCupid %>% filter(age >= "28" & age <= "32", drinks != "")
-ggplot(data = OKCupid12, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet3 <- renderPlot({
-OKCupid13 <- OkCupid %>% filter(age >= "28" & age <= "32", pets != "")
-ggplot(data = OKCupid13, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet3 <- renderPlot({
-OkCupid14 <- OkCupid %>% filter(age >= "28" & age <= "32", diet != "")
-ggplot(data = OkCupid14, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-
-output$smoke4 <- renderPlot({
-OKCupid16 <- OkCupid %>% filter(age >= "33" & age <= "37", smokes != "")
-ggplot(data = OKCupid16, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink4 <- renderPlot({
-OKCupid17 <- OkCupid %>% filter(age >= "33" & age <= "37", drinks != "")
-ggplot(data = OKCupid17, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet4 <- renderPlot({
-OKCupid18 <- OkCupid %>% filter(age >= "33" & age <= "37", pets != "")
-ggplot(data = OKCupid18, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference")  + coord_flip()
-})
-
-output$diet4 <- renderPlot({
-OkCupid19 <- OkCupid %>% filter(age >= "33" & age <= "37", diet != "")
-ggplot(data = OkCupid19, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet")+ coord_flip()
-})
-
-
-
-output$smoke5 <- renderPlot({
-OKCupid21 <- OkCupid %>% filter(age >= "38" & age <= "42", smokes != "")
-ggplot(data = OKCupid21, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink5 <- renderPlot({
-OKCupid22 <- OkCupid %>% filter(age >= "38" & age <= "42", drinks != "")
-ggplot(data = OKCupid22, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet5 <- renderPlot({
-OKCupid23 <- OkCupid %>% filter(age >= "38" & age <= "42", pets != "")
-ggplot(data = OKCupid23, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet5 <- renderPlot({
-OkCupid24 <- OkCupid %>% filter(age >= "38" & age <= "42", diet != "")
-ggplot(data = OkCupid24, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-
-output$smoke6 <- renderPlot({
-OKCupid26 <- OkCupid %>% filter(age >= "43" & age <= "47", smokes != "")
-ggplot(data = OKCupid26, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink6 <- renderPlot({
-OKCupid27 <- OkCupid %>% filter(age >= "43" & age <= "47", drinks != "")
-ggplot(data = OKCupid27, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet6 <- renderPlot({
-OKCupid28 <- OkCupid %>% filter(age >= "43" & age <= "47", pets != "")
-ggplot(data = OKCupid28, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet6 <- renderPlot({
-OkCupid29 <- OkCupid %>% filter(age >= "43" & age <= "47", diet != "")
-ggplot(data = OkCupid29, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-
-output$smoke7 <- renderPlot({
-OKCupid31 <- OkCupid %>% filter(age >= "48" & age <= "52", smokes != "")
-ggplot(data = OKCupid31, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink7 <- renderPlot({
-OKCupid32 <- OkCupid %>% filter(age >= "48" & age <= "52", drinks != "")
-ggplot(data = OKCupid32, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet7 <- renderPlot({
-OKCupid33 <- OkCupid %>% filter(age >= "48" & age <= "52", pets != "")
-ggplot(data = OKCupid33, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet7 <- renderPlot({
-OkCupid34 <- OkCupid %>% filter(age >= "48" & age <= "52", diet != "")
-ggplot(data = OkCupid34, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-
-output$smoke8 <- renderPlot({
-OKCupid36 <- OkCupid %>% filter(age >= "53" & age <= "57", smokes != "")
-ggplot(data = OKCupid36, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink8 <- renderPlot({
-OKCupid37 <- OkCupid %>% filter(age >= "53" & age <= "57", drinks != "")
-ggplot(data = OKCupid37, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet8 <- renderPlot({
-OKCupid38 <- OkCupid %>% filter(age >= "53" & age <= "57", pets != "")
-ggplot(data = OKCupid38, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet8 <- renderPlot({
-OkCupid39 <- OkCupid %>% filter(age >= "53" & age <= "57", diet != "")
-ggplot(data = OkCupid39, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-output$smoke9 <- renderPlot({
-OKCupid41 <- OkCupid %>% filter(age >= "58" & age <= "62", smokes != "")
-ggplot(data = OKCupid41, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink9 <- renderPlot({
-OKCupid42 <- OkCupid %>% filter(age >= "58" & age <= "62", drinks != "")
-ggplot(data = OKCupid42, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet9 <- renderPlot({
-OKCupid43 <- OkCupid %>% filter(age >= "58" & age <= "62", pets != "")
-ggplot(data = OKCupid43, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet9 <- renderPlot({
-OkCupid44 <- OkCupid %>% filter(age >= "58" & age <= "62", diet != "")
-ggplot(data = OkCupid44, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
-})
-
-
-output$smoke10 <- renderPlot({
-OKCupid46 <- OkCupid %>% filter(age >= "63" & age <= "69", smokes != "")
-ggplot(data = OKCupid46, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
-})
-
-output$drink10 <- renderPlot({
-OKCupid47 <- OkCupid %>% filter(age >= "63" & age <= "69", drinks != "")
-ggplot(data = OKCupid47, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
-})
-
-output$pet10 <- renderPlot({
-OKCupid48 <- OkCupid %>% filter(age >= "63" & age <= "69", pets != "")
-ggplot(data = OKCupid48, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
-})
-
-output$diet10 <- renderPlot({
-OkCupid49 <- OkCupid %>% filter(age >= "63" & age <= "69", diet != "")
+output$whichdiet <- renderPlot({
+  if(input$age == "18-22"){
+   Okupid4 <- OkCupid %>% filter(age >= "18" & age <= "22", diet != "")
+ggplot(data = OkCupid4, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age == "23-27"){
+   OkCupid9 <- OkCupid %>% filter(age >= "23" & age <= "27", diet != "")
+ggplot(data = OkCupid9, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age == "28-32"){
+  OkCupid14 <- OkCupid %>% filter(age >= "28" & age <= "32", diet != "")
+ggplot(data = OkCupid14, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age == "33-37"){
+  OkCupid19 <- OkCupid %>% filter(age >= "33" & age <= "37", diet != "")
+ggplot(data = OkCupid19, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet")+ coord_flip()  
+  }
+  else if(input$age == "38-42"){
+  OkCupid24 <- OkCupid %>% filter(age >= "38" & age <= "42", diet != "")
+ggplot(data = OkCupid24, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age == "43-47"){
+  OkCupid29 <- OkCupid %>% filter(age >= "43" & age <= "47", diet != "")
+ggplot(data = OkCupid29, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age == "48-52"){
+  OkCupid34 <- OkCupid %>% filter(age >= "48" & age <= "52", diet != "")
+ggplot(data = OkCupid34, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age == "53-57"){
+  OkCupid39 <- OkCupid %>% filter(age >= "53" & age <= "57", diet != "")
+ggplot(data = OkCupid39, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else if(input$age=="58-62"){
+  OkCupid44 <- OkCupid %>% filter(age >= "58" & age <= "62", diet != "")
+ggplot(data = OkCupid44, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+  }
+  else{
+    OkCupid49 <- OkCupid %>% filter(age >= "63" & age <= "69", diet != "")
 ggplot(data = OkCupid49, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
+  }
 })
-
-
 
 }
 
