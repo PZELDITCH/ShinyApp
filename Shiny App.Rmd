@@ -35,7 +35,12 @@ ui <- fluidPage(
              tags$ul("53-57"),
              tags$ul("58-62"),
              tags$ul("63-69"),
-             tags$p("Below you'll find the age distribution of profiles. Click on each of the tabs and choose an age range to look at the number of people with certain characteristics available!"),
+             tags$p("Below you'll find the age distribution of profiles. Click on each of the tabs and choose an age range to look at the number of people with certain characteristics available!")
+             ),
+    tabPanel("Age Distribution of People on OkCupid",
+             fluidRow(column(width=12)),
+             tags$p("This is the age distribution for the age groups previously described."),
+             tags$br(),
              column(12,plotOutput("agedistribution"))
              ),
     tabPanel("By Body Type",
