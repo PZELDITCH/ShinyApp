@@ -30,37 +30,47 @@ ui <- fluidPage(
     tabPanel("By Body Type",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected="18-22"),
-             column(12,plotOutput("whichbody"))
+             column(12,plotOutput("whichbody")),
+             selectInput("bodytype","Select body type:",
+              c("Used Up","Thin","Skinny","Rather Not Say","Overweight","Jacked","Full Figured","Fit","Curvy","Average","Athletic","A Little Extra"))
              ),
     tabPanel("By Diet",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
-             column(12,plotOutput("whichdiet"))
+             column(12,plotOutput("whichdiet")),
+             selectInput("diettype","Select diet type:",
+              c("Vegetarian","Vegan","Strictly Vegetarian","Strictly Vegan","Strictly Other", "Strictly Kosher", "Strictly Halal", "Strictly Anything", "Other", "Mostly Vegetarian", "Mostly Vegan", "Mostly Other", "Mostly Kosher", "Mostly Halal", "Mostly Anything", "Kosher", "Anything"))
              ),
     tabPanel("By Drinking Activity",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
-             column(12,plotOutput("whichdrink"))
+             column(12,plotOutput("whichdrink")),
+             selectInput("drinkact","Select drinking frequency:",
+              c("Very Often","Socially","Rarely","Often","Not at All","Desperately"))
              ),
     tabPanel("By Pet Preference",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
-             column(12,plotOutput("whichpet"))
+             column(12,plotOutput("whichpet")),
+             selectInput("petlike", "Select pet preference:",
+              c("Likes Dogs and Cats","Likes Dogs and Has Cats","Likes Dogs and Dislikes Cats", "Likes Dogs", "Likes Cats", "Has Dogs and Likes Cats", "Has Dogs and Has Cats", "Has Dogs and Dislikes Cats", "Has Dogs", "Has Cats", "Dislikes Dogs and Likes Cats", "Dislikes Dogs and Has Cats", "Dislikes Dogs and Dislikes Cats", "Dislikes Dogs", "Dislikes Cats"))
              ),
     tabPanel("By Smoking Activity",
              fluidRow(column(width=12)),
              selectInput("age", "Select age range:",
-             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","58-62","63-69"),
+             c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
-             column(12,plotOutput("whichsmoke"))
+             column(12,plotOutput("whichsmoke")),
+             selectInput("smokefreq","Select smoking frequency activity:",
+              c("Yes", "When Drinking", "Trying to Quit", "Sometimes", "No"))
              )
 )
 )
@@ -75,10 +85,12 @@ output$agedistribution <- renderPlot({
 
 output$whichbody <- renderPlot({
   if(input$age == "18-22"){
+    print("working!")
   OkCupid5 <- OkCupid %>% filter(age >= "18" & age <= "22", body_type != "")
 ggplot(data = OkCupid5, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
   }
   else if(input$age == "23-27"){
+    print("working too!")
   OkCupid10 <- OkCupid %>% filter(age >= "23" & age <= "27", body_type != "")
 ggplot(data = OkCupid10, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
   }
@@ -123,10 +135,11 @@ output$whichsmoke <- renderPlot({
 ggplot(data = OKCupid1, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
   }
   else if(input$age == "23-27"){
-  OKCupid6 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes != "")
-ggplot(data = OKCupid6, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+    OKCupid6 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes != "")
+ggplot(data = OKCupid6, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
   }
   else if(input$age == "28-32"){
+    c
   OKCupid11 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes != "")
 ggplot(data = OKCupid11, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
   }
@@ -154,9 +167,12 @@ ggplot(data = OKCupid36, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y
   OKCupid41 <- OkCupid %>% filter(age >= "58" & age <= "62", smokes != "")
 ggplot(data = OKCupid41, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
   }
-  else{
+  else if(input$age == "63-69"){
   OKCupid46 <- OkCupid %>% filter(age >= "63" & age <= "69", smokes != "")
 ggplot(data = OKCupid46, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()  
+  }
+  else{
+    print("fell through")
   }
 })
 
@@ -248,7 +264,7 @@ ggplot(data = OKCupid48, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y 
 
 output$whichdiet <- renderPlot({
   if(input$age == "18-22"){
-   Okupid4 <- OkCupid %>% filter(age >= "18" & age <= "22", diet != "")
+   OkCupid4 <- OkCupid %>% filter(age >= "18" & age <= "22", diet != "")
 ggplot(data = OkCupid4, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
   }
   else if(input$age == "23-27"){
@@ -257,7 +273,7 @@ ggplot(data = OkCupid9, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number o
   }
   else if(input$age == "28-32"){
   OkCupid14 <- OkCupid %>% filter(age >= "28" & age <= "32", diet != "")
-ggplot(data = OkCupid14, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid14, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
   }
   else if(input$age == "33-37"){
   OkCupid19 <- OkCupid %>% filter(age >= "33" & age <= "37", diet != "")
@@ -269,7 +285,7 @@ ggplot(data = OkCupid24, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number 
   }
   else if(input$age == "43-47"){
   OkCupid29 <- OkCupid %>% filter(age >= "43" & age <= "47", diet != "")
-ggplot(data = OkCupid29, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid29, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
   }
   else if(input$age == "48-52"){
   OkCupid34 <- OkCupid %>% filter(age >= "48" & age <= "52", diet != "")
