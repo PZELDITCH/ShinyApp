@@ -1,5 +1,5 @@
 ---
-title: "OkCupid For You: Find Your Future Friends and Partners"
+title: "OkCupid For You!"
 author: Megan Resurreccion and Phillip Zelditch; STAT 385 Final Project
 output: html_document
 runtime: shiny
@@ -22,55 +22,66 @@ ui <- fluidPage(
   navlistPanel(
     tabPanel("About the Project",
              fluidRow(column(width=12)),
-             tags$p("On common dating apps, you don't get to find the right person for you. The app does. Conventional dating apps don't let you refine your searches for the people you're looking for. Finding friends and partners with stuff in common in real life can also be difficult. Find a better social life for you."),
+             tags$p("On modern dating apps, you don't get to find the right person for you. The app does. Conventional dating apps don't let you refine your searches for the people you're looking for. Finding friends and partners with common interests in real life can also be difficult. Find a better social life for you."),
              tags$br(),
              tags$p("Below you'll find the age distribution of profiles. Click on each of the tabs and choose an age range to look at the number of people with certain characteristics available!"),
              column(12,plotOutput("agedistribution"))
              ),
     tabPanel("By Body Type",
              fluidRow(column(width=12)),
+             tags$p("Look through age ranges according to body type!"),
              selectInput("age", "Select age range:",
              c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected="18-22"),
              column(12,plotOutput("whichbody")),
              selectInput("bodytype","Select body type:",
-              c("Used Up","Thin","Skinny","Rather Not Say","Overweight","Jacked","Full Figured","Fit","Curvy","Average","Athletic","A Little Extra"))
+              c("Used Up","Thin","Skinny","Rather Not Say","Overweight","Jacked","Full Figured","Fit","Curvy","Average","Athletic","A Little Extra")),
+             tags$p("Future work: pick your preferred body type from this age group and scroll through profiles to pick your partner!")
+             # column(12,tableOutput("smoketab"))
              ),
     tabPanel("By Diet",
              fluidRow(column(width=12)),
+             tags$p("Look through age ranges according to body type!"),
              selectInput("age", "Select age range:",
              c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
              column(12,plotOutput("whichdiet")),
              selectInput("diettype","Select diet type:",
-              c("Vegetarian","Vegan","Strictly Vegetarian","Strictly Vegan","Strictly Other", "Strictly Kosher", "Strictly Halal", "Strictly Anything", "Other", "Mostly Vegetarian", "Mostly Vegan", "Mostly Other", "Mostly Kosher", "Mostly Halal", "Mostly Anything", "Kosher", "Anything"))
+              c("Vegetarian","Vegan","Strictly Vegetarian","Strictly Vegan","Strictly Other", "Strictly Kosher", "Strictly Halal", "Strictly Anything", "Other", "Mostly Vegetarian", "Mostly Vegan", "Mostly Other", "Mostly Kosher", "Mostly Halal", "Mostly Anything", "Kosher", "Anything")),
+             tags$p("Future work: pick your preferred diet type from this age group and scroll through profiles to pick your partner!")
              ),
     tabPanel("By Drinking Activity",
              fluidRow(column(width=12)),
+             tags$p("Look through age ranges according to body type!"),
              selectInput("age", "Select age range:",
              c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
              column(12,plotOutput("whichdrink")),
              selectInput("drinkact","Select drinking frequency:",
-              c("Very Often","Socially","Rarely","Often","Not at All","Desperately"))
+              c("Very Often","Socially","Rarely","Often","Not at All","Desperately")),
+             tags$p("Future work: pick your preferred drinking frequency from this age group and scroll through profiles to pick your partner!")
              ),
     tabPanel("By Pet Preference",
              fluidRow(column(width=12)),
+             tags$p("Look through age ranges according to body type!"),
              selectInput("age", "Select age range:",
              c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
              column(12,plotOutput("whichpet")),
              selectInput("petlike", "Select pet preference:",
-              c("Likes Dogs and Cats","Likes Dogs and Has Cats","Likes Dogs and Dislikes Cats", "Likes Dogs", "Likes Cats", "Has Dogs and Likes Cats", "Has Dogs and Has Cats", "Has Dogs and Dislikes Cats", "Has Dogs", "Has Cats", "Dislikes Dogs and Likes Cats", "Dislikes Dogs and Has Cats", "Dislikes Dogs and Dislikes Cats", "Dislikes Dogs", "Dislikes Cats"))
+              c("Likes Dogs and Cats","Likes Dogs and Has Cats","Likes Dogs and Dislikes Cats", "Likes Dogs", "Likes Cats", "Has Dogs and Likes Cats", "Has Dogs and Has Cats", "Has Dogs and Dislikes Cats", "Has Dogs", "Has Cats", "Dislikes Dogs and Likes Cats", "Dislikes Dogs and Has Cats", "Dislikes Dogs and Dislikes Cats", "Dislikes Dogs", "Dislikes Cats")),
+             tags$p("Future work: pick your preferred pet preference from this age group and scroll through profiles to pick your partner!")
              ),
     tabPanel("By Smoking Activity",
              fluidRow(column(width=12)),
+             tags$p("Look through age ranges according to body type!"),
              selectInput("age", "Select age range:",
              c("18-22","23-27","28-32","33-37","38-42","43-47","48-52","53-57","58-62","63-69"),
              selected = "18-22"),
              column(12,plotOutput("whichsmoke")),
-             selectInput("smokefreq","Select smoking frequency activity:",
-              c("Yes", "When Drinking", "Trying to Quit", "Sometimes", "No"))
+             selectInput("smokefreq","Select smoking frequency:",
+              c("Yes", "When Drinking", "Trying to Quit", "Sometimes", "No")),
+             tags$p("Future work: pick your preferred smoking frequency from this age group and scroll through profiles to pick your partner!")
              )
 )
 )
@@ -80,226 +91,529 @@ ui <- fluidPage(
 server <- function(input, output) {
 
 output$agedistribution <- renderPlot({
-  ggplot(data = OkCupid, aes(age)) + geom_bar() + labs(x = "Age of User", y = "Number of Users", title = "Number of Users by Age") + scale_x_discrete()
+  ggplot(data = OkCupid, aes(age)) + geom_bar(fill="red",color="black") + labs(x = "Age of User", y = "Number of Users", title = "Number of Users by Age") + scale_x_discrete(limits=seq(18,109,4)) + theme_bw()
 })
 
 output$whichbody <- renderPlot({
   if(input$age == "18-22"){
   OkCupid5 <- OkCupid %>% filter(age >= "18" & age <= "22", body_type != "")
-ggplot(data = OkCupid5, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid5, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "23-27"){
   OkCupid10 <- OkCupid %>% filter(age >= "23" & age <= "27", body_type != "")
-ggplot(data = OkCupid10, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid10, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "28-32"){
   OkCupid15 <- OkCupid %>% filter(age >= "28" & age <= "32", body_type != "")
-ggplot(data = OkCupid15, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid15, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "33-37"){
 OkCupid20 <- OkCupid %>% filter(age >= "33" & age <= "37", body_type != "")
-ggplot(data = OkCupid20, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid20, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "38-42"){
 OkCupid25 <- OkCupid %>% filter(age >= "38" & age <= "42", body_type != "")
-ggplot(data = OkCupid25, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid25, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "43-47"){
 OkCupid30 <- OkCupid %>% filter(age >= "43" & age <= "47", body_type != "")
-ggplot(data = OkCupid30, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid30, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "48-52"){
 OkCupid35 <- OkCupid %>% filter(age >= "48" & age <= "52", body_type != "")
-ggplot(data = OkCupid35, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid35, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "53-57"){
 OkCupid40 <- OkCupid %>% filter(age >= "53" & age <= "57", body_type != "")
-ggplot(data = OkCupid40, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid40, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else if(input$age == "58-62"){
 OkCupid45 <- OkCupid %>% filter(age >= "58" & age <= "62", body_type != "")
-ggplot(data = OkCupid45, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid45, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
   else{
 OkCupid50 <- OkCupid %>% filter(age >= "63" & age <= "69", body_type != "")
-ggplot(data = OkCupid50, aes(body_type)) + geom_bar() + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip()
+ggplot(data = OkCupid50, aes(body_type)) + geom_bar(fill="blue",color="black") + labs(x = "Body Type", y = "Number of Users", title = "Number of Users by Body Type") + coord_flip() + theme_bw()
   }
 })
 
 output$whichsmoke <- renderPlot({
   if(input$age == "18-22"){
   OKCupid1 <- OkCupid %>% filter(age >= "18" & age <= "22", smokes != "")
-ggplot(data = OKCupid1, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid1, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "23-27"){
   OKCupid6 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes != "")
-ggplot(data = OKCupid6, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid6, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "28-32"){
   OKCupid11 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes != "")
-ggplot(data = OKCupid11, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid11, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "33-37"){
 OKCupid16 <- OkCupid %>% filter(age >= "33" & age <= "37", smokes != "")
-ggplot(data = OKCupid16, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid16, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "38-42"){
 OKCupid21 <- OkCupid %>% filter(age >= "38" & age <= "42", smokes != "")
-ggplot(data = OKCupid21, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid21, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "43-47"){
 OKCupid26 <- OkCupid %>% filter(age >= "43" & age <= "47", smokes != "")
-ggplot(data = OKCupid26, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid26, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "48-52"){
 OKCupid31 <- OkCupid %>% filter(age >= "48" & age <= "52", smokes != "")
-ggplot(data = OKCupid31, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid31, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "53-57"){
 OKCupid36 <- OkCupid %>% filter(age >= "53" & age <= "57", smokes != "")
-ggplot(data = OKCupid36, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid36, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "58-62"){
 OKCupid41 <- OkCupid %>% filter(age >= "58" & age <= "62", smokes != "")
-ggplot(data = OKCupid41, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid41, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
   else{
 OKCupid46 <- OkCupid %>% filter(age >= "63" & age <= "69", smokes != "")
-ggplot(data = OKCupid46, aes(smokes)) + geom_bar() + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip()
+ggplot(data = OKCupid46, aes(smokes)) + geom_bar(fill="orange",color="black") + labs(x = "Smoking Habit", y = "Number of Users", title = "Number of Users by Smoking Habit") + coord_flip() + theme_bw()
   }
 })
+
+##ATTEMPTED DATA TABLE
+output$smoketab <- renderTable({
+    OkCupida <- OkCupid %>% filter(age >= "18" & age <= "22", smokes == "yes")
+    OkCupidresponsesa <- select(OkCupida, starts_with("essay"))
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay0"] <- "My Self Summary"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay1"] <- "What I Am Doing With My Life"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay2"] <- "I Am Really Good At"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay3"] <- "The First Thing People Usually Notice About Me"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay5"] <- "The Six Things I Could Never Do Without"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay7"] <- "On A Typical Friday Night I Am"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+    names(OkCupidresponsesa)[names(OkCupidresponsesa) == "essay9"] <- "You Should Message Me If..."        
+})
+###END ATTEMPTED DATA TABLE
 
 output$whichdrink <- renderPlot({
   if(input$age == "18-22"){
     OKCupid2 <- OkCupid %>% filter(age >= "18" & age <= "22", drinks != "")
-ggplot(data = OKCupid2, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()
+ggplot(data = OKCupid2, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "23-27"){
   OKCupid7 <- OkCupid %>% filter(age >= "23" & age <= "27", drinks != "")
-ggplot(data = OKCupid7, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid7, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "28-32"){
   OKCupid12 <- OkCupid %>% filter(age >= "28" & age <= "32", drinks != "")
-ggplot(data = OKCupid12, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid12, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()+ theme_bw()
   }
   else if(input$age == "33-37"){
   OKCupid17 <- OkCupid %>% filter(age >= "33" & age <= "37", drinks != "")
-ggplot(data = OKCupid17, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid17, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip() + theme_bw()
   }
   else if(input$age == "38-42"){
   OKCupid22 <- OkCupid %>% filter(age >= "38" & age <= "42", drinks != "")
-ggplot(data = OKCupid22, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid22, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()+ theme_bw()
   }
   else if(input$age == "43-47"){
   OKCupid27 <- OkCupid %>% filter(age >= "43" & age <= "47", drinks != "")
-ggplot(data = OKCupid27, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid27, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  + theme_bw()
   }
   else if(input$age == "48-52"){
   OKCupid32 <- OkCupid %>% filter(age >= "48" & age <= "52", drinks != "")
-ggplot(data = OKCupid32, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid32, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  + theme_bw()
   }
   else if(input$age == "53-57"){
   OKCupid37 <- OkCupid %>% filter(age >= "53" & age <= "57", drinks != "")
-ggplot(data = OKCupid37, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid37, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  + theme_bw()
   }
   else if(input$age=="58-62"){
   OKCupid42 <- OkCupid %>% filter(age >= "58" & age <= "62", drinks != "")
-ggplot(data = OKCupid42, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid42, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  + theme_bw()
   }
   else{
   OKCupid47 <- OkCupid %>% filter(age >= "63" & age <= "69", drinks != "")
-ggplot(data = OKCupid47, aes(drinks)) + geom_bar() + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  
+ggplot(data = OKCupid47, aes(drinks)) + geom_bar(fill="green",color="black") + labs(x = "Drinking Habit", y = "Number of Users", title = "Number of Users by Drinking Habit") + coord_flip()  + theme_bw()
   }
 })
 
 output$whichpet <- renderPlot({
   if(input$age == "18-22"){
   OKCupid3 <- OkCupid %>% filter(age >= "18" & age <= "22", pets != "")
-ggplot(data = OKCupid3, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()
+ggplot(data = OKCupid3, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()
   }
   else if(input$age == "23-27"){
   OKCupid8 <- OkCupid %>% filter(age >= "23" & age <= "27", pets != "")
-ggplot(data = OKCupid8, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid8, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
   else if(input$age == "28-32"){
   OKCupid13 <- OkCupid %>% filter(age >= "28" & age <= "32", pets != "")
-ggplot(data = OKCupid13, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid13, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
   else if(input$age == "33-37"){
   OKCupid18 <- OkCupid %>% filter(age >= "33" & age <= "37", pets != "")
-ggplot(data = OKCupid18, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference")  + coord_flip()  
+ggplot(data = OKCupid18, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference")  + coord_flip() + theme_bw()  
   }
   else if(input$age == "38-42"){
   OKCupid23 <- OkCupid %>% filter(age >= "38" & age <= "42", pets != "")
-ggplot(data = OKCupid23, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid23, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
   else if(input$age == "43-47"){
   OKCupid28 <- OkCupid %>% filter(age >= "43" & age <= "47", pets != "")
-ggplot(data = OKCupid28, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid28, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
   else if(input$age == "48-52"){
   OKCupid33 <- OkCupid %>% filter(age >= "48" & age <= "52", pets != "")
-ggplot(data = OKCupid33, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid33, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
   else if(input$age == "53-57"){
   OKCupid38 <- OkCupid %>% filter(age >= "53" & age <= "57", pets != "")
-ggplot(data = OKCupid38, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid38, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
   else if(input$age=="58-62"){
   OKCupid43 <- OkCupid %>% filter(age >= "58" & age <= "62", pets != "")
-ggplot(data = OKCupid43, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid43, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw() + theme_bw()  
   }
   else{
   OKCupid48 <- OkCupid %>% filter(age >= "63" & age <= "69", pets != "")
-ggplot(data = OKCupid48, aes(pets)) + geom_bar() + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip()  
+ggplot(data = OKCupid48, aes(pets)) + geom_bar(fill="pink",color="black") + labs(x = "Pet Preference", y = "Number of Users", title = "Number of Users by Pet Preference") + coord_flip() + theme_bw()  
   }
 })
 
 output$whichdiet <- renderPlot({
   if(input$age == "18-22"){
    OkCupid4 <- OkCupid %>% filter(age >= "18" & age <= "22", diet != "")
-ggplot(data = OkCupid4, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid4, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  + theme_bw()
   }
   else if(input$age == "23-27"){
    OkCupid9 <- OkCupid %>% filter(age >= "23" & age <= "27", diet != "")
-ggplot(data = OkCupid9, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid9, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  + theme_bw()
   }
   else if(input$age == "28-32"){
   OkCupid14 <- OkCupid %>% filter(age >= "28" & age <= "32", diet != "")
-ggplot(data = OkCupid14, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
+ggplot(data = OkCupid14, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()+ theme_bw()
   }
   else if(input$age == "33-37"){
   OkCupid19 <- OkCupid %>% filter(age >= "33" & age <= "37", diet != "")
-ggplot(data = OkCupid19, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet")+ coord_flip()  
+ggplot(data = OkCupid19, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet")+ coord_flip()  + theme_bw()
   }
   else if(input$age == "38-42"){
   OkCupid24 <- OkCupid %>% filter(age >= "38" & age <= "42", diet != "")
-ggplot(data = OkCupid24, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid24, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  + theme_bw()
   }
   else if(input$age == "43-47"){
   OkCupid29 <- OkCupid %>% filter(age >= "43" & age <= "47", diet != "")
-ggplot(data = OkCupid29, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
+ggplot(data = OkCupid29, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()+ theme_bw()
   }
   else if(input$age == "48-52"){
   OkCupid34 <- OkCupid %>% filter(age >= "48" & age <= "52", diet != "")
-ggplot(data = OkCupid34, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid34, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  + theme_bw()
   }
   else if(input$age == "53-57"){
   OkCupid39 <- OkCupid %>% filter(age >= "53" & age <= "57", diet != "")
-ggplot(data = OkCupid39, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid39, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  + theme_bw()
   }
   else if(input$age=="58-62"){
   OkCupid44 <- OkCupid %>% filter(age >= "58" & age <= "62", diet != "")
-ggplot(data = OkCupid44, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  
+ggplot(data = OkCupid44, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()  + theme_bw()
   }
   else{
     OkCupid49 <- OkCupid %>% filter(age >= "63" & age <= "69", diet != "")
-ggplot(data = OkCupid49, aes(diet)) + geom_bar() + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()
+ggplot(data = OkCupid49, aes(diet)) + geom_bar(fill="purple",color="black") + labs(x = "Diet", y = "Number of Users", title = "Number of Users by Diet") + coord_flip()+ theme_bw()
   }
 })
 
 }
 
+###OTHER CREATED TABLES FOR EXTRA FEATURE###
+# OkCupidb <- OkCupid %>% filter(age >= "18" & age <= "22", smokes == "no")
+# 
+# OkCupidresponsesb <- select(OkCupidb, starts_with("essay"))
+# 
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesb)[names(OkCupidresponsesb) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidc <- OkCupid %>% filter(age >= "18" & age <= "22", smokes == "when drinking")
+# 
+# OkCupidresponsesc <- select(OkCupidc, starts_with("essay"))
+# 
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesc)[names(OkCupidresponsesc) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidd <- OkCupid %>% filter(age >= "18" & age <= "22", smokes == "trying to quit")
+# 
+# OkCupidresponsesd <- select(OkCupidd, starts_with("essay"))
+# 
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesd)[names(OkCupidresponsesd) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupide <- OkCupid %>% filter(age >= "18" & age <= "22", smokes == "sometimes")
+# 
+# OkCupidresponsese <- select(OkCupide, starts_with("essay"))
+# 
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsese)[names(OkCupidresponsese) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupida1 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes == "yes")
+# 
+# OkCupidresponsesa1 <- select(OkCupida1, starts_with("essay"))
+# 
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesa1)[names(OkCupidresponsesa1) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidb1 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes == "no")
+# 
+# OkCupidresponsesb1 <- select(OkCupidb1, starts_with("essay"))
+# 
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesb1)[names(OkCupidresponsesb1) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidc1 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes == "when drinking")
+# 
+# OkCupidresponsesc1 <- select(OkCupidc1, starts_with("essay"))
+# 
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesc1)[names(OkCupidresponsesc1) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidd1 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes == "trying to quit")
+# 
+# OkCupidresponsesd1 <- select(OkCupidd1, starts_with("essay"))
+# 
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesd1)[names(OkCupidresponsesd1) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupide1 <- OkCupid %>% filter(age >= "23" & age <= "27", smokes == "sometimes")
+# 
+# OkCupidresponsese1 <- select(OkCupide1, starts_with("essay"))
+# 
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsese1)[names(OkCupidresponsese1) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupida2 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes == "yes")
+# 
+# OkCupidresponsesa2 <- select(OkCupida2, starts_with("essay"))
+# 
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesa2)[names(OkCupidresponsesa2) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidb2 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes == "no")
+# 
+# OkCupidresponsesb2 <- select(OkCupidb2, starts_with("essay"))
+# 
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesb2)[names(OkCupidresponsesb2) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidc1 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes == "when drinking")
+# 
+# OkCupidresponsesc1 <- select(OkCupidc1, starts_with("essay"))
+# 
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesc2)[names(OkCupidresponsesc2) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidd2 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes == "trying to quit")
+# 
+# OkCupidresponsesd2 <- select(OkCupidd2, starts_with("essay"))
+# 
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesd2)[names(OkCupidresponsesd2) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupide2 <- OkCupid %>% filter(age >= "28" & age <= "32", smokes == "sometimes")
+# 
+# OkCupidresponsese2 <- select(OkCupide2, starts_with("essay"))
+# 
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsese2)[names(OkCupidresponsese2) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupida3 <- OkCupid %>% filter(age >= "23" & age <= "37", smokes == "yes")
+# 
+# OkCupidresponsesa3 <- select(OkCupida3, starts_with("essay"))
+# 
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesa3)[names(OkCupidresponsesa3) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidb3 <- OkCupid %>% filter(age >= "23" & age <= "37", smokes == "no")
+# 
+# OkCupidresponsesb3 <- select(OkCupidb3, starts_with("essay"))
+# 
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesb3)[names(OkCupidresponsesb3) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidc3 <- OkCupid %>% filter(age >= "23" & age <= "37", smokes == "when drinking")
+# 
+# OkCupidresponsesc3 <- select(OkCupidc3, starts_with("essay"))
+# 
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesc3)[names(OkCupidresponsesc3) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupidd3 <- OkCupid %>% filter(age >= "23" & age <= "37", smokes == "trying to quit")
+# 
+# OkCupidresponsesd3 <- select(OkCupidd3, starts_with("essay"))
+# 
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsesd3)[names(OkCupidresponsesd3) == "essay9"] <- "You Should Message Me If..."
+# 
+# OkCupide3 <- OkCupid %>% filter(age >= "23" & age <= "37", smokes == "sometimes")
+# 
+# OkCupidresponsese3 <- select(OkCupide3, starts_with("essay"))
+# 
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay0"] <- "My Self Summary"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay1"] <- "What I Am Doing With My Life"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay2"] <- "I Am Really Good At"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay3"] <- "The First Thing People Usually Notice About Me"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay4"] <- "Favorite Books, Movies, Shows, Music, and Food"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay5"] <- "The Six Things I Could Never Do Without"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay6"] <- "I Spend A Lot Of Time Thinking About"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay7"] <- "On A Typical Friday Night I Am"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay8"] <- "The Most Private Thing I Am Willing To Admit"
+# names(OkCupidresponsese3)[names(OkCupidresponsese3) == "essay9"] <- "You Should Message Me If..."
+###END OTHER CREATED TABLES FOR EXTRA FEATURE
 
 shinyApp(ui = ui, server = server)
 ```
